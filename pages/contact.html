@@ -56,13 +56,26 @@
 
     <div class="d-flex flex-column w-auto align-items-center mb-5">
       <div class="border border-3 border-danger rounded-3 p-3" id="form">
-        <form name="contact" method="POST" data-netlify="true">
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="text-center">
           <input type="hidden" name="form-name" value="contact" />
-          <p><input type="text" name="name" placeholder="Name" required /></p>
-          <p><input type="email" name="email" placeholder="Email" required /></p>
-          <p><textarea name="message" placeholder="Message" required></textarea></p>
-          <p><button type="submit">Send</button></p>
+          <p hidden>
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
+          <p>
+            <label>Your Name: <input type="text" name="name" class="form-control" required /></label>
+          </p>
+          <p>
+            <label>Your Email: <input type="email" name="email" class="form-control" required /></label>
+          </p>
+          <p>
+            <label>Message: <textarea name="message" class="form-control" rows="5" required></textarea></label>
+          </p>
+          <p>
+            <button type="submit" class="btn btn-danger btn-lg fw-bold">Send</button>
+          </p>
         </form>
+
+
       </div>
     </div>
   </main>
