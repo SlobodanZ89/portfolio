@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content="GitLab Pages" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Portfolio Website</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+  <div class="container-fluid gx-0">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+      <div class="container">
+        <a href="../index.html" class="navbar-brand">SZ</a>
+        <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="../index.html" class="nav-link p-3"><span class="pb-2">Home</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="about.html" class="nav-link p-3"><span class="pb-2">About</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="projects.html" class="nav-link p-3 active"><span class="pb-2">Projects</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="contact.html" class="nav-link p-3"><span class="pb-2">Contact</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Main -->
+  <main class="text-light ms-5 mt-5">
+    <h1 class="display-1 fw-bold">
+      My <span class="text-danger">Work</span>
+    </h1>
+    <p>Check out some of my projects...</p>
+
+    <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+
+        <div class="carousel-item active">
+          <div class="card mx-auto" style="width: 18rem;">
+            <img src="../img/Katzenvwebsite.png" class="card-img-top border-bottom border-2 border-danger"
+              alt="Foto von Katzenwebsite" />
+            <div class="card-body">
+              <h5 class="card-title">Katzen Website</h5>
+              <p class="card-text">
+                Small website of why the cat videos are so popular.
+              </p>
+              <a href="https://github.com/SlobodanZ89/katzenwebsite" class="btn btn-danger w-100" target="_blank"><i
+                  class="fa-brands fa-github fa-2x text-light"></i> Github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="card mx-auto" style="width: 18rem;">
+            <img src="../img/formwebsite.jpeg" class="card-img-top border-bottom border-2 border-danger"
+              alt="Foto von Katzenwebsite" />
+            <div class="card-body">
+              <h5 class="card-title">Form Input</h5>
+              <p class="card-text">Small website with all type of inputs.</p>
+              <a href="https://github.com/SlobodanZ89/form" class="btn btn-danger w-100" target="_blank"><i
+                  class="fa-brands fa-github fa-2x text-light"></i> Github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="card mx-auto" style="width: 18rem;">
+            <img src="../img/logoNav.jpeg" class="card-img-top border-bottom border-2 border-danger"
+              alt="Foto von Katzenwebsite" />
+            <div class="card-body">
+              <h5 class="card-title">Nav with Logo</h5>
+              <p class="card-text">Flexbox nav with logo and background color</p>
+              <a href="https://github.com/SlobodanZ89/logoNav" class="btn btn-danger w-100" target="_blank"><i
+                  class="fa-brands fa-github fa-2x text-light"></i> Github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-item">
+          <div class="card mx-auto" style="width: 18rem;">
+            <img src="../img/ResponsiveDesignWebsite.jpeg" class="card-img-top border-bottom border-2 border-danger"
+              alt="Foto von Katzenwebsite" />
+            <div class="card-body">
+              <h5 class="card-title">Flexbox with Media Query</h5>
+              <p class="card-text">
+                Flexbox with Media Query for different screen sizes
+              </p>
+              <a href="https://github.com/SlobodanZ89/responsiveDesignFlexbox" class="btn btn-danger w-100"
+                target="_blank"><i class="fa-brands fa-github fa-2x text-light"></i> Github</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </main>
+</body>
+
+</html>
