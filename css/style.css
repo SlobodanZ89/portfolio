@@ -51,19 +51,24 @@ body::before {
   background-color: #a71d2a;
 }
 
-form {
+#form {
   width: 360px;
-}
-
-.form-control {
-  width: 300px;
 }
 
 .form-control:focus {
   border: #dc3545 3px solid;
 }
 
-.card-img-top {
-  width: 16rem;
-  height: 16rem;
+.form-check-input:checked {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.card img,
+.card .card-img-top {
+    width: 100%;
+    display: block;    /* remove inline gaps */
+    height: auto;      /* keep aspect ratio */
+    object-fit: cover; /* optional: crop to fill if you set a fixed height */
+    border-radius: inherit; /* match card rounded corners if any */
 }
