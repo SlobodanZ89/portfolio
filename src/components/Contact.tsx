@@ -1,11 +1,15 @@
 import { Alert, Box, Card, CardContent, Stack, TextField, Typography } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useLanguage } from '../state/language'
 import { OutlinedLinkButton } from './OutlinedLinkButton'
 
 function mailtoHref(to: string, subject: string, body: string) {
   const params = new URLSearchParams({ subject, body })
   return `mailto:${encodeURIComponent(to)}?${params.toString()}`
+}
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
 }
 
 export function Contact() {
@@ -15,20 +19,29 @@ export function Contact() {
   const endpoint = (import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined)?.trim()
   const fallbackTo = 'slobodan.zivojinovic1989@gmail.com'
 
-  const isValid = useMemo(() => {
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())
-    return values.name.trim().length > 1 && emailOk && values.message.trim().length > 5
-  }, [values])
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!isValid || status === 'sending') return
+    if (status === 'sending') return
 
     setStatus('sending')
     try {
+      // Use FormData so browser autofill is supported reliably.
+      const fd = new FormData(e.currentTarget)
+      const payload = {
+        name: String(fd.get('name') ?? '').trim(),
+        email: String(fd.get('email') ?? '').trim(),
+        message: String(fd.get('message') ?? '').trim(),
+      }
+
+      const valid = payload.name.length > 1 && isValidEmail(payload.email) && payload.message.length > 5
+      if (!valid) {
+        setStatus('error')
+        return
+      }
+
       if (!endpoint) {
-        const subject = `Portfolio contact from ${values.name}`
-        const body = `Name: ${values.name}\nEmail: ${values.email}\n\n${values.message}`
+        const subject = `Portfolio contact from ${payload.name}`
+        const body = `Name: ${payload.name}\nEmail: ${payload.email}\n\n${payload.message}`
         window.location.href = mailtoHref(fallbackTo, subject, body)
         setStatus('success')
         return
@@ -37,7 +50,7 @@ export function Contact() {
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       })
 
       if (!res.ok) throw new Error(`Contact form failed: ${res.status}`)
@@ -104,7 +117,7 @@ export function Contact() {
               />
 
               <Box sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <OutlinedLinkButton type="submit" disabled={!isValid || status === 'sending'} endIcon={null}>
+                <OutlinedLinkButton type="submit" disabled={status === 'sending'} endIcon={null}>
                   {status === 'sending' ? t.contact.sending : t.contact.send}
                 </OutlinedLinkButton>
               </Box>
