@@ -21,3 +21,9 @@ Thumbs.db
 
 # Netlify local tooling
 .netlify/
+
+# Personal documents (CV/resume)
+**/*cv*.pdf
+**/*CV*.pdf
+**/*resume*.pdf
+**/*Resume*.pdf
