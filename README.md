@@ -2,6 +2,10 @@
 
 Personal portfolio site built with **React (Vite)**, **TypeScript**, and **Material UI**.
 
+## Live site
+
+- **GitHub Pages**: `https://slobodanz89.github.io/portfolio/`
+
 ## Local development
 
 Install dependencies:
