@@ -1,12 +1,8 @@
 import { Alert, Box, Card, CardContent, Stack, TextField, Typography } from '@mui/material'
+import emailjs from '@emailjs/browser'
 import { useState } from 'react'
 import { useLanguage } from '../state/language'
 import { OutlinedLinkButton } from './OutlinedLinkButton'
-
-function mailtoHref(to: string, subject: string, body: string) {
-  const params = new URLSearchParams({ subject, body })
-  return `mailto:${encodeURIComponent(to)}?${params.toString()}`
-}
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
@@ -16,8 +12,10 @@ export function Contact() {
   const { t } = useLanguage()
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error' | 'invalid'>('idle')
   const [values, setValues] = useState({ name: '', email: '', message: '' })
-  const endpoint = (import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined)?.trim()
-  const fallbackTo = 'slobodan.zivojinovic1989@gmail.com'
+  const serviceId = (import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined)?.trim()
+  const ownerTemplateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_OWNER_ID as string | undefined)?.trim()
+  const replyTemplateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_REPLY_ID as string | undefined)?.trim()
+  const publicKey = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined)?.trim()
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -39,21 +37,33 @@ export function Contact() {
         return
       }
 
-      if (!endpoint) {
-        const subject = `Portfolio contact from ${payload.name}`
-        const body = `Name: ${payload.name}\nEmail: ${payload.email}\n\n${payload.message}`
-        window.location.href = mailtoHref(fallbackTo, subject, body)
-        setStatus('success')
-        return
-      }
+      if (!serviceId || !ownerTemplateId || !replyTemplateId || !publicKey) throw new Error('EmailJS not configured')
 
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
+      const time = new Date().toISOString()
+      await emailjs.send(
+        serviceId,
+        ownerTemplateId,
+        {
+          from_name: payload.name,
+          from_email: payload.email,
+          message: payload.message,
+          time,
+        },
+        { publicKey },
+      )
 
-      if (!res.ok) throw new Error(`Contact form failed: ${res.status}`)
+      await emailjs.send(
+        serviceId,
+        replyTemplateId,
+        {
+          to_name: payload.name,
+          to_email: payload.email,
+          message: payload.message,
+          time,
+        },
+        { publicKey },
+      )
+
       setStatus('success')
       setValues({ name: '', email: '', message: '' })
     } catch {

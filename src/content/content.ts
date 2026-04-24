@@ -231,7 +231,7 @@ export const CONTENT: Record<Language, Dictionary> = {
       sending: 'Sending…',
       success: 'Thanks! Your message was sent.',
       validationError: 'Please check your details and message (all fields are required).',
-      error: 'Something went wrong. Please try again.',
+      error: 'Message could not be sent. Please try again in a moment.',
     },
   },
   de: {
@@ -392,7 +392,7 @@ export const CONTENT: Record<Language, Dictionary> = {
       sending: 'Wird gesendet…',
       success: 'Danke! Deine Nachricht wurde gesendet.',
       validationError: 'Bitte prüfe deine Eingaben (alle Felder sind erforderlich).',
-      error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
+      error: 'Nachricht konnte nicht gesendet werden. Bitte versuche es gleich noch einmal.',
     },
   },
 }
