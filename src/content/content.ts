@@ -68,6 +68,7 @@ type Dictionary = {
     send: string
     sending: string
     success: string
+    validationError: string
     error: string
   }
 }
@@ -229,6 +230,7 @@ export const CONTENT: Record<Language, Dictionary> = {
       send: 'Send message',
       sending: 'Sending…',
       success: 'Thanks! Your message was sent.',
+      validationError: 'Please check your details and message (all fields are required).',
       error: 'Something went wrong. Please try again.',
     },
   },
@@ -389,6 +391,7 @@ export const CONTENT: Record<Language, Dictionary> = {
       send: 'Nachricht senden',
       sending: 'Wird gesendet…',
       success: 'Danke! Deine Nachricht wurde gesendet.',
+      validationError: 'Bitte prüfe deine Eingaben (alle Felder sind erforderlich).',
       error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
     },
   },

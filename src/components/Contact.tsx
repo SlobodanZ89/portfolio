@@ -14,7 +14,7 @@ function isValidEmail(email: string) {
 
 export function Contact() {
   const { t } = useLanguage()
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error' | 'invalid'>('idle')
   const [values, setValues] = useState({ name: '', email: '', message: '' })
   const endpoint = (import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined)?.trim()
   const fallbackTo = 'slobodan.zivojinovic1989@gmail.com'
@@ -28,14 +28,14 @@ export function Contact() {
       // Use FormData so browser autofill is supported reliably.
       const fd = new FormData(e.currentTarget)
       const payload = {
-        name: String(fd.get('name') ?? '').trim(),
-        email: String(fd.get('email') ?? '').trim(),
-        message: String(fd.get('message') ?? '').trim(),
+        name: (values.name || String(fd.get('name') ?? '')).trim(),
+        email: (values.email || String(fd.get('email') ?? '')).trim(),
+        message: (values.message || String(fd.get('message') ?? '')).trim(),
       }
 
       const valid = payload.name.length > 1 && isValidEmail(payload.email) && payload.message.length > 5
       if (!valid) {
-        setStatus('error')
+        setStatus('invalid')
         return
       }
 
@@ -84,6 +84,7 @@ export function Contact() {
           >
             <Stack spacing={1.5} sx={{ maxWidth: 720 }}>
               {status === 'success' ? <Alert severity="success">{t.contact.success}</Alert> : null}
+              {status === 'invalid' ? <Alert severity="warning">{t.contact.validationError}</Alert> : null}
               {status === 'error' ? <Alert severity="error">{t.contact.error}</Alert> : null}
 
               <TextField
