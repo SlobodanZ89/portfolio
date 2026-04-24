@@ -3,16 +3,17 @@ import { useMemo, useState } from 'react'
 import { useLanguage } from '../state/language'
 import { OutlinedLinkButton } from './OutlinedLinkButton'
 
-function encodeFormBody(data: Record<string, string>) {
-  return Object.keys(data)
-    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key] ?? '')}`)
-    .join('&')
+function mailtoHref(to: string, subject: string, body: string) {
+  const params = new URLSearchParams({ subject, body })
+  return `mailto:${encodeURIComponent(to)}?${params.toString()}`
 }
 
 export function Contact() {
   const { t } = useLanguage()
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [values, setValues] = useState({ name: '', email: '', message: '' })
+  const endpoint = (import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined)?.trim()
+  const fallbackTo = 'slobodan.zivojinovic1989@gmail.com'
 
   const isValid = useMemo(() => {
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())
@@ -25,17 +26,18 @@ export function Contact() {
 
     setStatus('sending')
     try {
-      const body = encodeFormBody({
-        'form-name': 'contact',
-        name: values.name,
-        email: values.email,
-        message: values.message,
-      })
+      if (!endpoint) {
+        const subject = `Portfolio contact from ${values.name}`
+        const body = `Name: ${values.name}\nEmail: ${values.email}\n\n${values.message}`
+        window.location.href = mailtoHref(fallbackTo, subject, body)
+        setStatus('success')
+        return
+      }
 
-      const res = await fetch('/', {
+      const res = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
       })
 
       if (!res.ok) throw new Error(`Contact form failed: ${res.status}`)
@@ -65,13 +67,8 @@ export function Contact() {
             component="form"
             name="contact"
             method="POST"
-            data-netlify="true"
-            netlify-honeypot="bot-field"
             onSubmit={onSubmit}
           >
-            <input type="hidden" name="form-name" value="contact" />
-            <input type="hidden" name="bot-field" />
-
             <Stack spacing={1.5} sx={{ maxWidth: 720 }}>
               {status === 'success' ? <Alert severity="success">{t.contact.success}</Alert> : null}
               {status === 'error' ? <Alert severity="error">{t.contact.error}</Alert> : null}

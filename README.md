@@ -42,6 +42,22 @@ This project includes a contact form wired for **Netlify Forms**:
 
 After deploying, submissions will appear in Netlify under **Forms**.
 
+## Deploying to GitHub Pages
+
+This repo is configured to deploy to **GitHub Pages** via a workflow at `.github/workflows/deploy.yml`.
+
+In GitHub:
+- **Settings → Pages**
+- **Source**: *GitHub Actions*
+
+The Vite base path is set for a project site at `https://<user>.github.io/portfolio/`.
+
+### Contact form on GitHub Pages
+
+GitHub Pages cannot process Netlify Forms. The contact form falls back to opening the user's email client via `mailto:` unless you configure an API endpoint:
+
+- Set `VITE_CONTACT_ENDPOINT` at build time (for example, a Formspree/Getform endpoint).
+
 ## Project structure
 
 - `src/content/content.ts`: all EN/DE copy for the site
