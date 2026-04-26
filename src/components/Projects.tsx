@@ -250,19 +250,8 @@ export function Projects() {
             </Box>
 
             <Stack direction="row" spacing={1} useFlexGap sx={{ mt: 2, flexWrap: 'wrap' }}>
-              <OutlinedLinkButton
-                href="https://gitlab.com/SlobodanZ/sw-react/-/tree/main/Kino/kino-app?ref_type=heads"
-                target="_blank"
-                rel="noreferrer"
-              >
-                kinoApp Frontend
-              </OutlinedLinkButton>
-              <OutlinedLinkButton
-                href="https://gitlab.com/SlobodanZ/sw-spring/-/tree/main/kino?ref_type=heads"
-                target="_blank"
-                rel="noreferrer"
-              >
-                kinoApp Backend
+              <OutlinedLinkButton href="https://github.com/SlobodanZ89/MovieTheater" target="_blank" rel="noreferrer">
+                MovieTheater
               </OutlinedLinkButton>
             </Stack>
           </CardContent>

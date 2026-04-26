@@ -124,8 +124,8 @@ export const CONTENT: Record<Language, Dictionary> = {
         features: ['GIS map visualization', 'Financial planning', 'Resource management'],
       },
       kinoApp: {
-        title: 'kinoApp (Cinema Booking)',
-        description: 'Cinema booking and administration platform with an interactive seat selection experience.',
+        title: 'MovieTheater',
+        description: 'Full-stack movie theater app (Spring Boot + React) with booking and admin features.',
         stack: ['Java', 'Spring Boot', 'React'],
         features: ['Interactive seat visualization', 'Booking flow', 'Admin management'],
       },
@@ -284,9 +284,9 @@ export const CONTENT: Record<Language, Dictionary> = {
         features: ['GIS-Kartenvisualisierung', 'Finanzplanung', 'Ressourcenmanagement'],
       },
       kinoApp: {
-        title: 'kinoApp (Cinema Booking)',
+        title: 'MovieTheater',
         description:
-          'Kino-Buchungs- und Admin-Plattform mit interaktiver Sitzplatz-Auswahl und durchgängiger Buchungsstrecke.',
+          'Full-Stack Kino-App (Spring Boot + React) mit Buchungsstrecke, Admin-Bereich und interaktiver Sitzplatz-Auswahl.',
         stack: ['Java', 'Spring Boot', 'React'],
         features: ['Interaktive Sitzplatz-Visualisierung', 'Buchungs-Flow', 'Admin-Verwaltung'],
       },
